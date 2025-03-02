@@ -22,7 +22,8 @@
         <p>Have questions or need support? We're here to help! Reach out to us using the form below or through our social media channels.</p>
         
         <div class="contact-form">
-            <form action="http://localhost:5000/contact" method="post">
+            <!-- Update the form action to point to your Render backend URL -->
+            <form id="contactForm" action="https://your-render-app-url.onrender.com/contact" method="post">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" placeholder="Enter your name" required>
@@ -69,5 +70,32 @@
     <div class="footer">
         &copy; 2025 Allergen. All rights reserved.
     </div>
+
+    <script>
+        // Add JavaScript to handle form submission and display a success/error message
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(e.target);
+            const response = await fetch(e.target.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    message: formData.get('message')
+                })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message); // Show success message
+            } else {
+                alert(result.error); // Show error message
+            }
+        });
+    </script>
 </body>
 </html>
