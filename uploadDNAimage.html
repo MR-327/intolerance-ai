@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALLERGEN</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1 class="heading">ALLERGEN</h1>
+    
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="allergy.html">Allergy</a>
+        <a href="contact.html">Contact</a>
+
+        <a href="about.html">About</a>
+    </div>
+    
+    <div class="container">
+        <h2>Upload DNA Image</h2>
+        <p>Upload your DNA image to get started. Our AI will analyze it and provide you with detailed allergy insights.</p>
+        <label class="custom-file-upload">
+            <input type="file" id="fileInput" accept="image/*" onchange="previewFile()">
+        </label>
+        <br><br>
+        <img id="previewImage" alt="Preview" class="preview" style="display: none;" />
+        <br>
+        <button class="cancel-btn" onclick="cancelUpload()">Cancel</button>
+        <button class="scan-btn" onclick="scanImage()">Scan</button>
+        <p id="statusMessage" class="status-message"></p>
+    </div>
+    
+    <!-- Call-to-Action Section -->
+    <div class="cta">
+        <h2>Not Sure How to Get Started?</h2>
+        <p>Check out our <a href="about.html">About</a> page to learn more about how Allergen works.</p>
+    </div>
+    
+    <div class="footer">
+        &copy; 2025 Allergen. All rights reserved.
+    </div>
+
+    <script>
+        function previewFile() {
+            let file = document.getElementById("fileInput").files[0];
+            let reader = new FileReader();
+            
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+
+            reader.onloadend = function () {
+                let img = document.getElementById("previewImage");
+                img.src = reader.result;
+                img.style.display = "block";
+            };
+        }
+
+        function cancelUpload() {
+            document.getElementById("fileInput").value = "";
+            document.getElementById("previewImage").style.display = "none";
+            document.getElementById("statusMessage").innerText = "Upload canceled.";
+        }
+
+        function scanImage() {
+            document.getElementById("statusMessage").innerText = "Scanning DNA Image...";
+            setTimeout(() => {
+                document.getElementById("statusMessage").innerText = "Scan completed successfully.";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
